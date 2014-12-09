@@ -84,6 +84,10 @@
       <Project>{d7cd72d1-b167-46ad-972d-a9edbb48c40e}</Project>
       <Name>LiveSpanish.WindowsPhone.BackgroundTask</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LiveSpanish.WindowsPhone.DataAccess\LiveSpanish.WindowsPhone.DataAccess.csproj">
+      <Project>{b41b1a77-fd06-46f6-b367-53b6d9ce10e2}</Project>
+      <Name>LiveSpanish.WindowsPhone.DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">

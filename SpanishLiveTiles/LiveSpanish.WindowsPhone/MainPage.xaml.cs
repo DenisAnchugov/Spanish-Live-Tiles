@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using Windows.ApplicationModel.Background;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
+using LiveSpanish.WindowsPhone.DataAccess.Entities;
 
 namespace LiveSpanish.WindowsPhone
 {
@@ -26,15 +28,7 @@ namespace LiveSpanish.WindowsPhone
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.RegisterBackgroundTask();
-
-            // TODO: Prepare page for display here.
-
-            // TODO: If your application contains multiple pages, ensure that you are
-            // handling the hardware Back button by registering for the
-            // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
-            // If you are using the NavigationHelper provided by some templates,
-            // this event is handled for you.
+            this.RegisterBackgroundTask();           
         }
 
         private async void RegisterBackgroundTask()
@@ -54,6 +48,29 @@ namespace LiveSpanish.WindowsPhone
                 var taskBuilder = new BackgroundTaskBuilder { Name = "FlashCardBackgroundTask", TaskEntryPoint = "LiveSpanish.WindowsPhone.BackgroundTask.FlashCardBackgroundTask" };
                 taskBuilder.SetTrigger(new TimeTrigger(15, false));
                 BackgroundTaskRegistration registration = taskBuilder.Register();
+            }
+        }
+
+        private void AppBarButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            List<VocabularySetEnum> selectedSets = new List<VocabularySetEnum>();
+            foreach (var uiElement in LayoutGrid.Children )
+            {
+                var checkBox = (CheckBox) uiElement;
+                var isChecked = checkBox.IsChecked;
+                if (isChecked != null && (bool) isChecked)
+                {
+                    //Nasty one, needs refactoring.
+                    switch (checkBox.Name)
+                    {
+                        case "1":
+                            selectedSets.Add(VocabularySetEnum.Colours);
+                            break;
+                        case "2":
+                            selectedSets.Add(VocabularySetEnum.Numbers);
+                            break;
+                    }
+                }
             }
         }
     }

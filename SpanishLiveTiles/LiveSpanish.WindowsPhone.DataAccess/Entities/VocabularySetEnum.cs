@@ -6,7 +6,20 @@ using System.Threading.Tasks;
 
 namespace LiveSpanish.WindowsPhone.DataAccess.Entities
 {
-    enum VocabularySetEnum
+    public enum VocabularySetEnum
     {
+        Adjectives,
+        Adverbs,
+        Colours,
+        ConnectingWords,
+        CountriesAndNationalities,
+        DaysOfWeek,
+        Greetings,
+        MonthsAndSeasons,
+        Numbers,
+        Prepositions,
+        Questions,
+        TimeExpressions,
+        Verbs
     }
 }

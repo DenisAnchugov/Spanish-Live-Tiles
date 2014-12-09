@@ -8,7 +8,42 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
 
-    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Save" Label="Save" Click="AppBarButton_Click"></AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid x:Name="LayoutGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <CheckBox x:Name="1" Grid.Row="0" Content="Colors" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <CheckBox x:Name="2" Grid.Row="1" Content="Numbers" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <CheckBox Grid.Row="2" Content="Days of week" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <CheckBox Grid.Row="3" Content="Connecting words" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <CheckBox Grid.Row="4" Content="Countries and nationalities" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <CheckBox Grid.Row="5" Content="Greetings" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <CheckBox Grid.Row="6" Content="Prepositions" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <CheckBox Grid.Row="7" Content="Questions" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <CheckBox Grid.Row="8" Content="Time expressions" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <CheckBox Grid.Row="9" Content="Verbs" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <CheckBox Grid.Row="10" Content="Adverbs" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <CheckBox Grid.Row="11" Content="Adjectives" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <CheckBox Grid.Row="12" Content="Months and seasons" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        </Grid>
 </Page>
