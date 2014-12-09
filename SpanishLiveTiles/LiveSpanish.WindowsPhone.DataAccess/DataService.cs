@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
-using Windows.Foundation;
 using Windows.Storage;
-using LiveSpanish.DataAccess.Entities;
+using LiveSpanish.WindowsPhone.DataAccess.Entities;
 using SQLite;
 
 
-namespace LiveSpanish.DataAccess
+namespace LiveSpanish.WindowsPhone.DataAccess
 {
     public class DataService
     {      
@@ -48,7 +47,7 @@ namespace LiveSpanish.DataAccess
             return dbexist;
         }
 
-        public async Task<List<ExpressionEntity>> GetTable()
+        public async Task<List<ExpressionEntity>> GetTableAsync()
         {
             await CopyDatabaseAsync();
             const string databasePath = "Vocabulary.sqlite";

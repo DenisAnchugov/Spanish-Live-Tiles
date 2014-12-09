@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{79612AB8-B31C-4254-B70E-F58A4EE73810}</ProjectGuid>
+    <ProjectGuid>{D7CD72D1-B167-46AD-972D-A9EDBB48C40E}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LiveSpanish.BackgroundTask</RootNamespace>
-    <AssemblyName>LiveSpanish.BackgroundTask</AssemblyName>
+    <RootNamespace>LiveSpanish.WindowsPhone.BackgroundTask</RootNamespace>
+    <AssemblyName>LiveSpanish.WindowsPhone.BackgroundTask</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
@@ -79,15 +79,14 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\LiveSpanish.DataAccess\LiveSpanish.DataAccess.csproj">
-      <Project>{47f4f5ac-e67a-40d9-b7a4-807edb3e3732}</Project>
-      <Name>LiveSpanish.DataAccess</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="FlashCardBackgroundTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LiveSpanish.WindowsPhone.DataAccess\LiveSpanish.WindowsPhone.DataAccess.csproj">
+      <Project>{B41B1A77-FD06-46F6-B367-53B6D9CE10E2}</Project>
+      <Name>LiveSpanish.WindowsPhone.DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

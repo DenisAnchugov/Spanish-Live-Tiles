@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Storage;
-using LiveSpanish.DataAccess.Entities;
+﻿using Windows.Storage;
 
-namespace LiveSpanish.DataAccess
+namespace LiveSpanish.WindowsPhone.DataAccess
 {
     class SettingsService
     {

@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace LiveSpanish.DataAccess.Entities
+namespace LiveSpanish.WindowsPhone.DataAccess.Entities
 {
     public sealed class ExpressionEntity
     {
