@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel.Background;
+using Windows.UI;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
+using LiveSpanish.WindowsPhone.DataAccess;
 using LiveSpanish.WindowsPhone.DataAccess.Entities;
 
 namespace LiveSpanish.WindowsPhone
@@ -28,6 +30,20 @@ namespace LiveSpanish.WindowsPhone
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            Colours.DataContext = VocabularySetEnum.Colours;
+            Verbs.DataContext = VocabularySetEnum.Verbs;
+            Adjectives.DataContext = VocabularySetEnum.Adjectives;
+            Adverbs.DataContext = VocabularySetEnum.Adverbs;
+            ConnectingWords.DataContext = VocabularySetEnum.ConnectingWords;
+            CountriesAndNationalities.DataContext = VocabularySetEnum.CountriesAndNationalities;
+            DaysOfWeek.DataContext = VocabularySetEnum.DaysOfWeek;
+            Greetings.DataContext = VocabularySetEnum.Greetings;
+            MonthsAndSeasons.DataContext = VocabularySetEnum.MonthsAndSeasons;
+            Numbers.DataContext = VocabularySetEnum.Numbers;
+            Prepositions.DataContext = VocabularySetEnum.Prepositions;
+            Questions.DataContext = VocabularySetEnum.Questions;
+            TimeExpressions.DataContext = VocabularySetEnum.TimeExpressions;
+            
             this.RegisterBackgroundTask();           
         }
 
@@ -47,31 +63,24 @@ namespace LiveSpanish.WindowsPhone
 
                 var taskBuilder = new BackgroundTaskBuilder { Name = "FlashCardBackgroundTask", TaskEntryPoint = "LiveSpanish.WindowsPhone.BackgroundTask.FlashCardBackgroundTask" };
                 taskBuilder.SetTrigger(new TimeTrigger(15, false));
-                BackgroundTaskRegistration registration = taskBuilder.Register();
+                var registration = taskBuilder.Register();
             }
         }
 
         private void AppBarButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            List<VocabularySetEnum> selectedSets = new List<VocabularySetEnum>();
+            var selectedSets = new List<VocabularySetEnum>();
             foreach (var uiElement in LayoutGrid.Children )
             {
                 var checkBox = (CheckBox) uiElement;
                 var isChecked = checkBox.IsChecked;
                 if (isChecked != null && (bool) isChecked)
                 {
-                    //Nasty one, needs refactoring.
-                    switch (checkBox.Name)
-                    {
-                        case "1":
-                            selectedSets.Add(VocabularySetEnum.Colours);
-                            break;
-                        case "2":
-                            selectedSets.Add(VocabularySetEnum.Numbers);
-                            break;
-                    }
+                    selectedSets.Add((VocabularySetEnum)checkBox.DataContext);
                 }
             }
+            var data = new SettingsService();
+            data.UpdateSelectedSets(selectedSets);
         }
     }
 }

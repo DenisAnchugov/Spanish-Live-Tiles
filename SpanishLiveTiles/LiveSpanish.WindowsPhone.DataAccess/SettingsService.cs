@@ -1,8 +1,10 @@
-﻿using Windows.Storage;
+﻿using System.Collections.Generic;
+using Windows.Storage;
+using LiveSpanish.WindowsPhone.DataAccess.Entities;
 
 namespace LiveSpanish.WindowsPhone.DataAccess
 {
-    class SettingsService
+    public class SettingsService
     {
         private readonly ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
 
@@ -23,5 +25,14 @@ namespace LiveSpanish.WindowsPhone.DataAccess
         //{
         //    settings.Values["WeekNumber"] = weekNumber;
         //}
+        public void UpdateSelectedSets(List<VocabularySetEnum> selectedSets)
+        {
+            settings.Values["SetsSelected"] = selectedSets;
+        }
+
+        public List<VocabularySetEnum> RetrieveSelectedSets()
+        {
+            return (List<VocabularySetEnum>)settings.Values["SetsSelected"];
+        }
     }
 }
