@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.Storage;
 using LiveSpanish.WindowsPhone.DataAccess.Entities;
+using Newtonsoft.Json;
 
 namespace LiveSpanish.WindowsPhone.DataAccess
 {
@@ -8,31 +11,15 @@ namespace LiveSpanish.WindowsPhone.DataAccess
     {
         private readonly ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
 
-        //public State LoadState()
-        //{
-        //    if (settings.Values.ContainsKey("Category") && settings.Values.ContainsKey("WeekNumber"))
-        //    {
-        //        return new State((String)settings.Values["Category"], (Int32)settings.Values["WeekNumber"]);
-        //    }
-        //    return new State();
-        //}
-
-        //public void SaveCategoryState(string category)
-        //{
-        //    settings.Values["Category"] = category;
-        //}
-        //public void SaveWeekNumberState(int weekNumber)
-        //{
-        //    settings.Values["WeekNumber"] = weekNumber;
-        //}
-        public void UpdateSelectedSets(List<VocabularySetEnum> selectedSets)
+        public async Task UpdateSelectedSets(List<VocabularySetEnum> selectedSets)
         {
-            settings.Values["SetsSelected"] = selectedSets;
+            var selected = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(selectedSets));
+            settings.Values["SetsSelected"] = selected;
         }
 
-        public List<VocabularySetEnum> RetrieveSelectedSets()
+        public async Task<List<VocabularySetEnum>> RetrieveSelectedSets()
         {
-            return (List<VocabularySetEnum>)settings.Values["SetsSelected"];
+            return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<List<VocabularySetEnum>>(settings.Values["SetsSelected"].ToString()));        
         }
     }
 }

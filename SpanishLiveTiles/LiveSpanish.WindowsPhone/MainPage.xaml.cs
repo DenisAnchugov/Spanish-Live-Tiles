@@ -44,7 +44,7 @@ namespace LiveSpanish.WindowsPhone
             Questions.DataContext = VocabularySetEnum.Questions;
             TimeExpressions.DataContext = VocabularySetEnum.TimeExpressions;
             
-            this.RegisterBackgroundTask();           
+                       
         }
 
         private async void RegisterBackgroundTask()
@@ -67,7 +67,7 @@ namespace LiveSpanish.WindowsPhone
             }
         }
 
-        private void AppBarButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void AppBarButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var selectedSets = new List<VocabularySetEnum>();
             foreach (var uiElement in LayoutGrid.Children )
@@ -80,7 +80,8 @@ namespace LiveSpanish.WindowsPhone
                 }
             }
             var data = new SettingsService();
-            data.UpdateSelectedSets(selectedSets);
+            await data.UpdateSelectedSets(selectedSets);
+            this.RegisterBackgroundTask();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.Storage;
@@ -47,13 +48,21 @@ namespace LiveSpanish.WindowsPhone.DataAccess
             return dbexist;
         }
 
-        public async Task<List<ExpressionEntity>> GetTableAsync()
+
+        public async Task<List<ExpressionEntity>> GetTableAsync( )
         {
+            var data = new SettingsService();
+            List<VocabularySetEnum> sets =  await data.RetrieveSelectedSets();
             await CopyDatabaseAsync();
             const string databasePath = "Vocabulary.sqlite";
             var conn = new SQLiteAsyncConnection(databasePath);
-            var result = await conn.QueryAsync<ExpressionEntity>("Select * FROM Numbers");
-            return GetNextFive(result);
+            List<ExpressionEntity> wordsTotal = new List<ExpressionEntity>();
+            foreach (var set in sets)
+            {
+                var result = await conn.QueryAsync<ExpressionEntity>("Select * FROM " + set.ToString());
+                wordsTotal.AddRange(result);
+            }
+            return GetNextFive(wordsTotal);
         }
 
         public List<ExpressionEntity> GetNextFive(List<ExpressionEntity> list)
