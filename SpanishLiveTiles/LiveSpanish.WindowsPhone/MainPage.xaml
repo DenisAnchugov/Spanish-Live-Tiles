@@ -18,7 +18,7 @@
         <ListView ItemsSource="{Binding SetSelections}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <CheckBox  Content="{Binding SetEnum}" IsChecked="{Binding IsSelected, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <CheckBox Content="{Binding SetEnum}" IsChecked="{Binding IsSelected, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
