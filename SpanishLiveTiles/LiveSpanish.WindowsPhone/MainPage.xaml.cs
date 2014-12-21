@@ -30,6 +30,7 @@ namespace LiveSpanish.WindowsPhone
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            
             //Colours.DataContext = VocabularySetEnum.Colours;
             //Verbs.DataContext = VocabularySetEnum.Verbs;
             //Adjectives.DataContext = VocabularySetEnum.Adjectives;
@@ -80,8 +81,7 @@ namespace LiveSpanish.WindowsPhone
             //    }
             //}
             var data = new SettingsService();
-            await data.UpdateSelectedSets(selectedSets);
-            this.RegisterBackgroundTask();
+            await data.UpdateSelectedSets(selectedSets);            
         }
     }
 }

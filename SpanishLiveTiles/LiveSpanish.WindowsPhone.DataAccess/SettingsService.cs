@@ -19,7 +19,15 @@ namespace LiveSpanish.WindowsPhone.DataAccess
 
         public async Task<List<VocabularySetEnum>> RetrieveSelectedSets()
         {
-            return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<List<VocabularySetEnum>>(settings.Values["SetsSelected"].ToString()));        
+
+            try
+            {
+                return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<List<VocabularySetEnum>>(settings.Values["SetsSelected"].ToString()));
+            }
+            catch (Exception)
+            {
+                return new List<VocabularySetEnum>();
+            }           
         }
     }
 }
