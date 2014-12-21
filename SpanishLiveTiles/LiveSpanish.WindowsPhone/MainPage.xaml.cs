@@ -30,19 +30,19 @@ namespace LiveSpanish.WindowsPhone
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Colours.DataContext = VocabularySetEnum.Colours;
-            Verbs.DataContext = VocabularySetEnum.Verbs;
-            Adjectives.DataContext = VocabularySetEnum.Adjectives;
-            Adverbs.DataContext = VocabularySetEnum.Adverbs;
-            ConnectingWords.DataContext = VocabularySetEnum.ConnectingWords;
-            CountriesAndNationalities.DataContext = VocabularySetEnum.CountriesAndNationalities;
-            DaysOfWeek.DataContext = VocabularySetEnum.DaysOfWeek;
-            Greetings.DataContext = VocabularySetEnum.Greetings;
-            MonthsAndSeasons.DataContext = VocabularySetEnum.MonthsAndSeasons;
-            Numbers.DataContext = VocabularySetEnum.Numbers;
-            Prepositions.DataContext = VocabularySetEnum.Prepositions;
-            Questions.DataContext = VocabularySetEnum.Questions;
-            TimeExpressions.DataContext = VocabularySetEnum.TimeExpressions;
+            //Colours.DataContext = VocabularySetEnum.Colours;
+            //Verbs.DataContext = VocabularySetEnum.Verbs;
+            //Adjectives.DataContext = VocabularySetEnum.Adjectives;
+            //Adverbs.DataContext = VocabularySetEnum.Adverbs;
+            //ConnectingWords.DataContext = VocabularySetEnum.ConnectingWords;
+            //CountriesAndNationalities.DataContext = VocabularySetEnum.CountriesAndNationalities;
+            //DaysOfWeek.DataContext = VocabularySetEnum.DaysOfWeek;
+            //Greetings.DataContext = VocabularySetEnum.Greetings;
+            //MonthsAndSeasons.DataContext = VocabularySetEnum.MonthsAndSeasons;
+            //Numbers.DataContext = VocabularySetEnum.Numbers;
+            //Prepositions.DataContext = VocabularySetEnum.Prepositions;
+            //Questions.DataContext = VocabularySetEnum.Questions;
+            //TimeExpressions.DataContext = VocabularySetEnum.TimeExpressions;
             
                        
         }
@@ -70,15 +70,15 @@ namespace LiveSpanish.WindowsPhone
         private async void AppBarButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var selectedSets = new List<VocabularySetEnum>();
-            foreach (var uiElement in LayoutGrid.Children )
-            {
-                var checkBox = (CheckBox) uiElement;
-                var isChecked = checkBox.IsChecked;
-                if (isChecked != null && (bool) isChecked)
-                {
-                    selectedSets.Add((VocabularySetEnum)checkBox.DataContext);
-                }
-            }
+            //foreach (var uiElement in LayoutGrid.Children )
+            //{
+            //    var checkBox = (CheckBox) uiElement;
+            //    var isChecked = checkBox.IsChecked;
+            //    if (isChecked != null && (bool) isChecked)
+            //    {
+            //        selectedSets.Add((VocabularySetEnum)checkBox.DataContext);
+            //    }
+            //}
             var data = new SettingsService();
             await data.UpdateSelectedSets(selectedSets);
             this.RegisterBackgroundTask();

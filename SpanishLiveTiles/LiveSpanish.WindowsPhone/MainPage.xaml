@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
 
 
     <Page.BottomAppBar>
@@ -15,36 +15,12 @@
         </CommandBar>
     </Page.BottomAppBar>
     <ScrollViewer>
-    <Grid x:Name="LayoutGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-
-        </Grid.RowDefinitions>
-            <CheckBox x:Name="Colours" Grid.Row="0" DataContext="{Binding}" Content="Colours" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <CheckBox x:Name="Numbers" Grid.Row="1" DataContext="{Binding}" Content="Numbers" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <CheckBox x:Name="DaysOfWeek" Grid.Row="2" DataContext="{Binding}" Content="Days of week" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <CheckBox x:Name="ConnectingWords" Grid.Row="3" DataContext="{Binding}" Content="Connecting words" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <CheckBox x:Name="CountriesAndNationalities" Grid.Row="4" DataContext="{Binding}" Content="Countries and nationalities" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <CheckBox x:Name="Greetings" Grid.Row="5" DataContext="{Binding}" Content="Greetings" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <CheckBox x:Name="Prepositions" Grid.Row="6" DataContext="{Binding}" Content="Prepositions" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <CheckBox x:Name="Questions" Grid.Row="7" DataContext="{Binding}" Content="Questions" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <CheckBox x:Name="TimeExpressions"  Grid.Row="8" DataContext="{Binding}" Content="Time expressions" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <CheckBox x:Name="Verbs" Grid.Row="9" Content="Verbs" DataContext="{Binding}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <CheckBox x:Name="Adverbs" Grid.Row="10" Content="Adverbs" DataContext="{Binding}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <CheckBox x:Name="Adjectives" Grid.Row="11" Content="Adjectives" DataContext="{Binding}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <CheckBox x:Name="MonthsAndSeasons" Grid.Row="12" DataContext="{Binding}" Content="Months and seasons" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-    </Grid>
+        <ListView ItemsSource="{Binding SetSelections}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding SetEnum}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ScrollViewer>
 </Page>
