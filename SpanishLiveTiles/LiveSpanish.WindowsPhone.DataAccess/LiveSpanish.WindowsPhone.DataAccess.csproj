@@ -92,6 +92,7 @@
     <Compile Include="Entities\ExpressionEntity.cs" />
     <Compile Include="Entities\State.cs" />
     <Compile Include="Entities\VocabularySetEnum.cs" />
+    <Compile Include="Entities\WordsContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsService.cs" />
     <Compile Include="SQLite.cs" />

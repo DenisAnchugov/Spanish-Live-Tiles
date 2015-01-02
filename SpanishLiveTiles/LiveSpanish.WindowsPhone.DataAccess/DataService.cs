@@ -11,7 +11,7 @@ using SQLite;
 namespace LiveSpanish.WindowsPhone.DataAccess
 {
     public class DataService
-    {      
+    {
         public async Task CopyDatabaseAsync()
         {
             var isDatabaseExisting = false;
@@ -49,14 +49,15 @@ namespace LiveSpanish.WindowsPhone.DataAccess
         }
 
 
-        public async Task<List<ExpressionEntity>> GetTableAsync( )
+        public async Task<WordsContainer> GetTableAsync()
         {
             var data = new SettingsService();
-            List<VocabularySetEnum> sets =  await data.RetrieveSelectedSets();
+            List<VocabularySetEnum> sets = await data.RetrieveSelectedSets();
             await CopyDatabaseAsync();
             const string databasePath = "Vocabulary.sqlite";
             var conn = new SQLiteAsyncConnection(databasePath);
             List<ExpressionEntity> wordsTotal = new List<ExpressionEntity>();
+
             foreach (var set in sets)
             {
                 var result = await conn.QueryAsync<ExpressionEntity>("Select * FROM " + set.ToString());
@@ -65,14 +66,18 @@ namespace LiveSpanish.WindowsPhone.DataAccess
             return GetNextFive(wordsTotal);
         }
 
-        public List<ExpressionEntity> GetNextFive(List<ExpressionEntity> list)
+        public WordsContainer GetNextFive(List<ExpressionEntity> list)
         {
-            var fiveExpressions = new List<ExpressionEntity>();
-            var rnd = new Random();
+            var fiveExpressions = new WordsContainer();
             for (var i = 0; i < 5; i++)
-            {              
-                var expression = list[rnd.Next(list.Count)];
-                fiveExpressions.Add(expression);
+            {
+                fiveExpressions.LongWords = (from expression in list
+                                             where expression.ExpressionLength <= 21
+                                             select expression).OrderBy(x => Guid.NewGuid()).Take(5).ToList();
+
+                fiveExpressions.ShortWords = (from expression in list
+                                              where expression.ExpressionLength <= 16
+                                              select expression).OrderBy(x => Guid.NewGuid()).Take(5).ToList();
             }
             return fiveExpressions;
         }

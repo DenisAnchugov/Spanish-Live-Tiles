@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,7 +57,7 @@ namespace LiveSpanish.WindowsPhone.ViewModel
             }
         }
 
-        private static async void RegisterBackgroundTask()
+        private static async Task RegisterBackgroundTask()
         {
             var backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
             if (backgroundAccessStatus == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
@@ -74,7 +73,7 @@ namespace LiveSpanish.WindowsPhone.ViewModel
 
                 var taskBuilder = new BackgroundTaskBuilder { Name = "FlashCardBackgroundTask", TaskEntryPoint = "LiveSpanish.WindowsPhone.BackgroundTask.FlashCardBackgroundTask" };
                 taskBuilder.SetTrigger(new TimeTrigger(15, false));
-                var registration = taskBuilder.Register();
+                taskBuilder.Register();
             }
         }
 
@@ -83,7 +82,7 @@ namespace LiveSpanish.WindowsPhone.ViewModel
             var selectedSets = (from selection in SetSelections where selection.IsSelected select selection.SetEnum).ToList();
             var data = new SettingsService();
             await data.UpdateSelectedSets(selectedSets);
-            RegisterBackgroundTask();
+            await RegisterBackgroundTask();
         }
     }
 }

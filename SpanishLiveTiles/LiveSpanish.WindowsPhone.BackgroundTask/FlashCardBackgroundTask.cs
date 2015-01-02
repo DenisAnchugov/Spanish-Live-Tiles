@@ -23,24 +23,28 @@ namespace LiveSpanish.WindowsPhone.BackgroundTask
             deferral.Complete();
         }
 
-        private static void UpdateTile(IEnumerable<ExpressionEntity> words)
+        private static void UpdateTile(WordsContainer words)
         {
+            
             var updater = TileUpdateManager.CreateTileUpdaterForApplication();
             updater.EnableNotificationQueue(true);
             updater.Clear();
+            
 
-            int itemCount = 0;
-
-            foreach (var item in words)
+            for (int i = 0; i < 5; i++)
             {
-                XmlDocument tileXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquareText01);
+                XmlDocument tileSquareXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquareText02);
+                XmlDocument tileWideXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150Text01);
 
-                tileXml.GetElementsByTagName("text")[0].InnerText = item.Expression;
-                tileXml.GetElementsByTagName("text")[1].InnerText = item.Translation;
-                updater.Update(new TileNotification(tileXml));
+                tileSquareXml.GetElementsByTagName("text")[0].InnerText = words.ShortWords[i].Expression;
+                tileSquareXml.GetElementsByTagName("text")[1].InnerText = words.ShortWords[i].Translation;
+                tileWideXml.GetElementsByTagName("text")[0].InnerText = words.LongWords[i].Expression;
+                tileWideXml.GetElementsByTagName("text")[1].InnerText = words.LongWords[i].Translation;
 
-                if (itemCount++ > 5) break;
-            }
+                updater.Update(new TileNotification(tileSquareXml));
+                updater.Update(new TileNotification(tileWideXml));
+
+            }           
         }
     }
 }
