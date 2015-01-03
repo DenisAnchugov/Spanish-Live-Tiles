@@ -72,7 +72,7 @@ namespace LiveSpanish.WindowsPhone.ViewModel
                 }
 
                 var taskBuilder = new BackgroundTaskBuilder { Name = "FlashCardBackgroundTask", TaskEntryPoint = "LiveSpanish.WindowsPhone.BackgroundTask.FlashCardBackgroundTask" };
-                taskBuilder.SetTrigger(new TimeTrigger(15, false));
+                taskBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, true));
                 taskBuilder.Register();
             }
         }

@@ -12,28 +12,29 @@ namespace LiveSpanish.WindowsPhone.DataAccess
 {
     public class DataService
     {
-        public async Task CopyDatabaseAsync()
+        private const string DatabasePath = "Vocabulary.sqlite";
+        private async Task CheckDatabase()
         {
-            var isDatabaseExisting = false;
-
+            var databaseExists = false;
+                       
             try
             {
-                StorageFile storageFile = await ApplicationData.Current.LocalFolder.GetFileAsync("Vocabulary.sqlite");
-                isDatabaseExisting = true;
+                var storageFile = await ApplicationData.Current.LocalFolder.GetFileAsync(DatabasePath);
+                databaseExists = true;
             }
             catch
             {
-                isDatabaseExisting = false;
+                databaseExists = false;
             }
 
-            if (!isDatabaseExisting)
+            if (!databaseExists)
             {
-                StorageFile databaseFile = await Package.Current.InstalledLocation.GetFileAsync("Vocabulary.sqlite");
+                var databaseFile = await Package.Current.InstalledLocation.GetFileAsync(DatabasePath);
                 await databaseFile.CopyAsync(ApplicationData.Current.LocalFolder);
-            }
+            }          
         }
 
-        public async Task<bool> DoesDbExist(string databaseName)
+        private async Task<bool> DatabaseExists(string databaseName)
         {
             var dbexist = true;
             try
@@ -53,10 +54,10 @@ namespace LiveSpanish.WindowsPhone.DataAccess
         {
             var data = new SettingsService();
             List<VocabularySetEnum> sets = await data.RetrieveSelectedSets();
-            await CopyDatabaseAsync();
-            const string databasePath = "Vocabulary.sqlite";
-            var conn = new SQLiteAsyncConnection(databasePath);
-            List<ExpressionEntity> wordsTotal = new List<ExpressionEntity>();
+
+            await CheckDatabase();           
+            var conn = new SQLiteAsyncConnection(DatabasePath);
+            var wordsTotal = new List<ExpressionEntity>();
 
             foreach (var set in sets)
             {
@@ -76,7 +77,7 @@ namespace LiveSpanish.WindowsPhone.DataAccess
                                              select expression).OrderBy(x => Guid.NewGuid()).Take(5).ToList();
 
                 fiveExpressions.ShortWords = (from expression in list
-                                              where expression.ExpressionLength <= 16
+                                              where expression.ExpressionLength <= 12
                                               select expression).OrderBy(x => Guid.NewGuid()).Take(5).ToList();
             }
             return fiveExpressions;

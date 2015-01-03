@@ -38,12 +38,12 @@ namespace LiveSpanish.WindowsPhone.BackgroundTask
 
                 tileSquareXml.GetElementsByTagName("text")[0].InnerText = words.ShortWords[i].Expression;
                 tileSquareXml.GetElementsByTagName("text")[1].InnerText = words.ShortWords[i].Translation;
+
                 tileWideXml.GetElementsByTagName("text")[0].InnerText = words.LongWords[i].Expression;
                 tileWideXml.GetElementsByTagName("text")[1].InnerText = words.LongWords[i].Translation;
 
-                updater.Update(new TileNotification(tileSquareXml));
                 updater.Update(new TileNotification(tileWideXml));
-
+                updater.Update(new TileNotification(tileSquareXml));
             }           
         }
     }

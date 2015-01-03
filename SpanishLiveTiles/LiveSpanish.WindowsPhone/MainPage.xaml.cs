@@ -20,8 +20,8 @@ namespace LiveSpanish.WindowsPhone
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-           var message = new MessageDialog("Now pin the tile to desktop. Words will start to show up shortly.", "Success");
-            message.ShowAsync();
+           var message = new MessageDialog("Now pin the tile to start screen. Use big square, or wide tile size. Words will appear after turning the screen on.", "Success");
+           message.ShowAsync();
         }
     }
 }
