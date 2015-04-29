@@ -25,26 +25,22 @@ namespace LiveSpanish.WindowsPhone.BackgroundTask
 
         private static void UpdateTile(WordsContainer words)
         {
-            
+
             var updater = TileUpdateManager.CreateTileUpdaterForApplication();
             updater.EnableNotificationQueue(true);
             updater.Clear();
-            
 
-            for (int i = 0; i < 5; i++)
-            {
-                XmlDocument tileSquareXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquareText02);
-                XmlDocument tileWideXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150Text01);
+            XmlDocument tileSquareXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquareText02);
+            XmlDocument tileWideXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150Text01);
 
-                tileSquareXml.GetElementsByTagName("text")[0].InnerText = words.ShortWords[i].Expression;
-                tileSquareXml.GetElementsByTagName("text")[1].InnerText = words.ShortWords[i].Translation;
+            tileSquareXml.GetElementsByTagName("text")[0].InnerText = words.ShortWords[0].Expression;
+            tileSquareXml.GetElementsByTagName("text")[1].InnerText = words.ShortWords[0].Translation;
 
-                tileWideXml.GetElementsByTagName("text")[0].InnerText = words.LongWords[i].Expression;
-                tileWideXml.GetElementsByTagName("text")[1].InnerText = words.LongWords[i].Translation;
+            tileWideXml.GetElementsByTagName("text")[0].InnerText = words.LongWords[0].Expression;
+            tileWideXml.GetElementsByTagName("text")[1].InnerText = words.LongWords[0].Translation;
 
-                updater.Update(new TileNotification(tileWideXml));
-                updater.Update(new TileNotification(tileSquareXml));
-            }           
+            updater.Update(new TileNotification(tileWideXml));
+            updater.Update(new TileNotification(tileSquareXml));
         }
     }
 }

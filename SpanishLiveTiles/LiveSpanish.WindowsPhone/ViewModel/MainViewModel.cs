@@ -59,7 +59,7 @@ namespace LiveSpanish.WindowsPhone.ViewModel
 
         private static async Task RegisterBackgroundTask()
         {
-            var backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
+                        var backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
             if (backgroundAccessStatus == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
                 backgroundAccessStatus == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity)
             {
@@ -71,9 +71,11 @@ namespace LiveSpanish.WindowsPhone.ViewModel
                     }
                 }
 
-                var taskBuilder = new BackgroundTaskBuilder { Name = "FlashCardBackgroundTask", TaskEntryPoint = "LiveSpanish.WindowsPhone.BackgroundTask.FlashCardBackgroundTask" };
-                taskBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, true));
+                var taskBuilder = new BackgroundTaskBuilder { Name = "FlashCardBackgroundTask", TaskEntryPoint = "LiveSpanish.WindowsPhone.BackgroundTask.FlashCardBackgroundTask"};
+                taskBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.UserPresent, false));
+                taskBuilder.AddCondition(new SystemCondition(SystemConditionType.UserPresent));
                 taskBuilder.Register();
+
             }
         }
 
@@ -84,5 +86,5 @@ namespace LiveSpanish.WindowsPhone.ViewModel
             await data.UpdateSelectedSets(selectedSets);
             await RegisterBackgroundTask();
         }
-    }
+        }
 }
