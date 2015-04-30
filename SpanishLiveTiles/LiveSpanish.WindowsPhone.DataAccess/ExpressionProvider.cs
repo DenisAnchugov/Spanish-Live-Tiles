@@ -48,7 +48,7 @@ namespace LiveSpanish.WindowsPhone.DataAccess
 
             foreach (var set in selectedSets)
             {
-                var result = await conn.QueryAsync<ExpressionEntity>("Select * FROM " + set.ToString());
+                var result = await conn.QueryAsync<ExpressionEntity>("Select * FROM " + set);
                 allExpressions.AddRange(result);
             }
             return GetExpressions(allExpressions);

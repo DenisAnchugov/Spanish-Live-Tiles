@@ -9,27 +9,23 @@ namespace LiveSpanish.WindowsPhone.BackgroundTask
     public sealed class FlashCardBackgroundTask : IBackgroundTask
     {
         readonly List<TileUpdater> tileUpdaters;
+        readonly ExpressionProvider expressionProvider;
 
         public FlashCardBackgroundTask()
         {
+            expressionProvider = TileDependancyProvider.GetExpressionProvider();
             tileUpdaters = new List<TileUpdater>
             {
-                TileUpdateManager.CreateTileUpdaterForApplication(),
-                TileUpdateManager.CreateTileUpdaterForSecondaryTile(TileDependancyProvider.GetSecondaryTileId)
+                TileUpdateManager.CreateTileUpdaterForSecondaryTile(TileDependancyProvider.GetSecondaryTileId),
+                TileUpdateManager.CreateTileUpdaterForApplication()
             };
-
-            foreach (var tileUpdater in tileUpdaters)
-            {
-                tileUpdater.EnableNotificationQueue(true);
-            }
         }
 
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             var deferral = taskInstance.GetDeferral();
 
-            var dataProvider = new ExpressionProvider();
-            var words = await dataProvider.GetTableAsync();
+            var words = await expressionProvider.GetTableAsync();
             UpdateTiles(words);
 
             deferral.Complete();
@@ -39,6 +35,7 @@ namespace LiveSpanish.WindowsPhone.BackgroundTask
         {
             foreach (var tileUpdater in tileUpdaters)
             {
+                tileUpdater.EnableNotificationQueue(true);
                 tileUpdater.Clear();
                 tileUpdater.Update(CreateTile(expression.ShortExpression, TileTemplateType.TileSquareText02));
                 tileUpdater.Update(CreateTile(expression.LongExpression, TileTemplateType.TileWide310x150Text01));
