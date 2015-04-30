@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
+using Windows.UI.StartScreen;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using LiveSpanish.WindowsPhone.DataAccess;
@@ -12,54 +13,53 @@ namespace LiveSpanish.WindowsPhone.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        private ObservableCollection<SetSelectionEntity> setSelections;
+        ObservableCollection<SelectionEntity> expressionsSets;
 
-        public RelayCommand UpdateSetsCommand { get; set; }
-        public ObservableCollection<SetSelectionEntity> SetSelections
+        public RelayCommand UpdateSelectedSetsCommand { get; private set; }
+        public ObservableCollection<SelectionEntity> ExpressionsSets
         {
-            get { return setSelections; }
-            set
+            get { return expressionsSets; }
+            private set
             {
-                if (value == setSelections) return;
-                setSelections = value;
-                RaisePropertyChanged("SetSelections");
+                if (value == expressionsSets) return;
+                expressionsSets = value;
+                RaisePropertyChanged();
             }
         }
 
         public MainViewModel()
         {
-            UpdateSetsCommand = new RelayCommand(async () => await UpdateSets());
-            SetSelections = new ObservableCollection<SetSelectionEntity>();
-            LoadSets();          
+            UpdateSelectedSetsCommand = new RelayCommand(async () => await UpdateSets());
+            ExpressionsSets = new ObservableCollection<SelectionEntity>();
+            LoadSetsAsync();
         }
 
-        private async void LoadSets()
+        async void LoadSetsAsync()
         {
-            var data = new SettingsService();
-            var sets = await data.RetrieveSelectedSets();
+            var setsSelected = await SettingsProvider.RetrieveSelectedSetsAsync();
             
-            foreach (var value in Enum.GetNames(typeof (VocabularySetEnum)))
+            foreach (var types in Enum.GetNames(typeof (VocabularySetEnum)))
             {
                 var isSelected = false;
-                foreach (var vocabularySetEnum in sets)
+                foreach (var vocabularySetEnum in setsSelected)
                 {
-                    if (value == vocabularySetEnum.ToString())
+                    if (types == vocabularySetEnum.ToString())
                     {
                         isSelected = true;
                     }
                 }
 
-                SetSelections.Add(new SetSelectionEntity()
+                ExpressionsSets.Add(new SelectionEntity()
                 {
                     IsSelected = isSelected,
-                    SetEnum = (VocabularySetEnum) Enum.Parse(typeof (VocabularySetEnum), value)
+                    SetEnum = (VocabularySetEnum) Enum.Parse(typeof (VocabularySetEnum), types)
                 });
             }
         }
 
         private static async Task RegisterBackgroundTask()
         {
-                        var backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
+            var backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
             if (backgroundAccessStatus == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
                 backgroundAccessStatus == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity)
             {
@@ -79,12 +79,11 @@ namespace LiveSpanish.WindowsPhone.ViewModel
             }
         }
 
-        public async Task UpdateSets()
+        async Task UpdateSets()
         {
-            var selectedSets = (from selection in SetSelections where selection.IsSelected select selection.SetEnum).ToList();
-            var data = new SettingsService();
-            await data.UpdateSelectedSets(selectedSets);
-            await RegisterBackgroundTask();
+            var selectedSets = (from selection in ExpressionsSets where selection.IsSelected select selection.SetEnum).ToList();
+            await SettingsProvider.UpdateSelectedSetsAsync(selectedSets);
+            await RegisterBackgroundTask();          
         }
-        }
+    }
 }

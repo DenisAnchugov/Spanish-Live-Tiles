@@ -10,7 +10,7 @@
 
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Icon="Save" Label="Save" Command="{Binding UpdateSetsCommand}" Click="ButtonBase_OnClick"></AppBarButton>
+            <AppBarButton Icon="Save" Label="Save" Command="{Binding UpdateSelectedSetsCommand}" Click="SaveChangesAsyncButton_Click"></AppBarButton>
         </CommandBar>
     </Page.BottomAppBar>
     <Grid>
@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Margin="10" Text="Select categories to show:" FontSize="{ThemeResource TextStyleExtraLargeFontSize}" FontWeight="SemiLight"></TextBlock>
         <ScrollViewer Grid.Row="1" Margin="10">           
-            <ListView  ItemsSource="{Binding SetSelections}">
+            <ListView  ItemsSource="{Binding ExpressionsSets}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <CheckBox Content="{Binding SetEnum}" IsChecked="{Binding IsSelected, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top"/>

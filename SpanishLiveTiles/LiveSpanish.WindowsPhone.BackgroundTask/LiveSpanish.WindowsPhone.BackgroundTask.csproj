@@ -84,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LiveSpanish.WindowsPhone.DataAccess\LiveSpanish.WindowsPhone.DataAccess.csproj">
-      <Project>{B41B1A77-FD06-46F6-B367-53B6D9CE10E2}</Project>
+      <Project>{b41b1a77-fd06-46f6-b367-53b6d9ce10e2}</Project>
       <Name>LiveSpanish.WindowsPhone.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
